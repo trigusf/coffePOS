@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      alignment="CENTER">
-
-    <Label text="WELCOME TO DASHBOARD"/>
-
-</VBox>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controller.dasboardController">
+   <children>
+      <Label layoutX="23.0" layoutY="62.0" prefHeight="30.0" prefWidth="554.0" text="Selamat Datang, Username" />
+      <Label layoutX="23.0" layoutY="32.0" prefHeight="30.0" prefWidth="554.0" text="Kasir Coffe Brewspace">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Button fx:id="btnDataProduk" layoutX="23.0" layoutY="117.0" mnemonicParsing="false" onAction="#openDataProduk" prefHeight="25.0" prefWidth="152.0" text="Data Produk" />
+      <Button layoutX="23.0" layoutY="149.0" mnemonicParsing="false" onAction="#openTransaksi" prefHeight="25.0" prefWidth="152.0" text="Transaksi" />
+      <Button layoutX="23.0" layoutY="181.0" mnemonicParsing="false" onAction="#openRiwayat" prefHeight="25.0" prefWidth="152.0" text="Riwayat" />
+      <Button layoutX="23.0" layoutY="347.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="152.0" text="Logout" />
+   </children>
+</Pane>

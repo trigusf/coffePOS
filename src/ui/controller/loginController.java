@@ -3,10 +3,16 @@ package ui.controller;
 import dao.userDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
+import model.User;
+
+import java.io.IOException;
 
 public class loginController {
     @FXML
@@ -16,20 +22,34 @@ public class loginController {
     private PasswordField txtPassword;
 
     @FXML
-    public void login(){
+    public void login(ActionEvent event) throws IOException {
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
         userDAO dao = new userDAO();
 
-        boolean success = dao.login(username, password);
+        User user = dao.login(username, password);
 
-        if (success){
+        if (user != null){
             try{
+                System.out.println(user.getUsername());
+                System.out.println(user.getIdLevel());
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/dashboard.fxml"));
-                Scene scene = new Scene(loader.load(),800,600);
-                Stage stage = (Stage) txtUsername.getScene().getWindow();
-                stage.setScene(scene);
+
+                Parent root = loader.load();
+
+                dasboardController controller =
+                        loader.getController();
+
+                controller.setLevel(user.getIdLevel());
+
+                Stage stage =
+                        (Stage)((Node)event.getSource())
+                                .getScene()
+                                .getWindow();
+
+                stage.setScene(new Scene(root));
+                stage.show();
             }catch (Exception e){
                 e.printStackTrace();
             }

@@ -1,18 +1,19 @@
 package model;
 
-public class user {
+public class User {
     private int id;
     private String username;
     private String password;
-    int idLevel;
+    private int idLevel;
 
-    public user(int id, String username, String password, int idLevel){
+    public User(int id, String username, String password, int idLevel){
         this.id = id;
         this.username = username;
         this.password = password;
         this.idLevel = idLevel;
     }
 
+    public int getId(){return id;}
     public String getUsername() {
         return username;
     }
