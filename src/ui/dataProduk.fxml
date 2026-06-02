@@ -25,8 +25,8 @@
           <TableColumn prefWidth="41.5999755859375" text="No" />
           <TableColumn prefWidth="207.99999237060547" text="Nama" />
             <TableColumn minWidth="0.0" prefWidth="108.79998779296875" text="harga" />
-            <TableColumn prefWidth="55.20001220703125" text="qty" />
-            <TableColumn prefWidth="91.99996948242188" text="categori" />
+            <TableColumn prefWidth="55.20001220703125" text="stock" />
+            <TableColumn prefWidth="91.99996948242188" text="kategori" />
             <TableColumn fx:id="colAction" prefWidth="114.39996337890625" text="opsi" />
         </columns>
       </TableView>

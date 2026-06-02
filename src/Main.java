@@ -15,7 +15,7 @@ public class Main extends Application{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/login.fxml"));
         Scene scene = new Scene(loader.load(),800,600);
         stage.setScene(scene);
-        stage.setTitle("Coffe POS");
+        stage.setTitle("BrewSpace");
         stage.show();
 
     }
