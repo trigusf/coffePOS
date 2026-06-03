@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controller.produkController">
    <children>
       <Label layoutX="178.0" layoutY="111.0" prefHeight="22.0" prefWidth="242.0" text="Nama Produk">
@@ -40,5 +39,6 @@
       <TextField fx:id="txtStock" layoutX="177.0" layoutY="242.0" prefHeight="26.0" prefWidth="242.0" />
       <ComboBox fx:id="cbKategori" layoutX="177.0" layoutY="287.0" prefHeight="26.0" prefWidth="242.0" promptText="Kategori" />
       <Button layoutX="177.0" layoutY="328.0" mnemonicParsing="false" onAction="#submitProduk" prefHeight="26.0" prefWidth="242.0" text="Tambah Produk" />
+      <Button layoutX="22.0" layoutY="54.0" mnemonicParsing="false" onAction="#backBtnToDataProduk" text="kembali" />
    </children>
 </AnchorPane>

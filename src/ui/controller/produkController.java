@@ -1,14 +1,19 @@
 package ui.controller;
 
 import dao.productDAO;
+import javafx.beans.property.ReadOnlyMapProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Product;
 
@@ -16,7 +21,53 @@ import java.io.IOException;
 
 public class produkController {
 
+//    button kembali
+    @FXML
+    public void  backBtnToDataProduk(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/ui/dataProduk.fxml"));
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
 
+    @FXML
+    public void backBtnToDashboard(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("/ui/dashboard.fxml"));
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+//    end of button kembali
+
+//    button tambah data
+
+    @FXML
+    private Button btnTambahData;
+
+    public void setLevel(int id_level){
+        if (id_level == 2){
+            btnTambahData.setVisible(false);
+            btnTambahData.setManaged(false);
+        }
+    }
+
+//    end of button tambah data
+
+
+
+
+
+//  path ke tambah data
+    @FXML
+    public void tambahData(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/ui/tambahDataProduk.fxml"));
+
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+//    end of path ke tambah data
 
 
 
@@ -40,6 +91,10 @@ public class produkController {
                     "Non Coffe",
                     "Food"
             );
+        }
+
+        if(tableProduk != null){
+            loadTable();
         }
     }
 
@@ -72,19 +127,71 @@ public class produkController {
 
     }
 
-
-
 //    end of tambah data
 
+
+//    tampil data
+
     @FXML
-    public void tambahData(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/ui/tambahDataProduk.fxml"));
+    private TableView<Product> tableProduk;
 
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+    @FXML
+    private TableColumn<Product, Integer> colNo;
 
-        stage.setScene(new Scene(root));
-        stage.show();
+    @FXML
+    private TableColumn<Product, String> colNama;
+
+    @FXML
+    private TableColumn<Product, Double> colHarga;
+
+    @FXML
+    private TableColumn<Product, Integer> colStock;
+
+    @FXML
+    private TableColumn<Product, String> colKategori;
+
+
+
+    public void loadTable(){
+        colNo.setCellValueFactory(cellData ->
+                new ReadOnlyObjectWrapper<>(
+                        tableProduk.getItems().indexOf(cellData.getValue())+1
+                )
+        );
+
+        colNama.setCellValueFactory(
+                new PropertyValueFactory<>(
+                        "namaProduk"
+                )
+        );
+
+        colHarga.setCellValueFactory(
+                new PropertyValueFactory<>(
+                        "harga"
+                )
+        );
+
+        colStock.setCellValueFactory(
+                new PropertyValueFactory<>(
+                        "stock"
+                )
+        );
+
+        colKategori.setCellValueFactory(
+                new PropertyValueFactory<>(
+                        "kategori"
+                )
+        );
+
+        productDAO dao = new productDAO();
+
+        ObservableList<Product> data = FXCollections.observableList(dao.getAllProduk());
+
+        tableProduk.setItems(data);
     }
+
+//    end of tampil data
+
 
 
 

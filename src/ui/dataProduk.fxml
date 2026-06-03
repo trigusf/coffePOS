@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="452.0" prefWidth="669.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controller.produkController">
    <children>
       <Label layoutX="23.0" layoutY="14.0" prefHeight="30.0" prefWidth="554.0" text="Kasir Coffe Brewspace">
@@ -20,16 +19,17 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TableView layoutX="23.0" layoutY="89.0" prefHeight="274.0" prefWidth="617.0">
+      <TableView fx:id="tableProduk" layoutX="23.0" layoutY="89.0" prefHeight="274.0" prefWidth="617.0">
         <columns>
-          <TableColumn prefWidth="41.5999755859375" text="No" />
-          <TableColumn prefWidth="207.99999237060547" text="Nama" />
-            <TableColumn minWidth="0.0" prefWidth="108.79998779296875" text="harga" />
-            <TableColumn prefWidth="55.20001220703125" text="stock" />
-            <TableColumn prefWidth="91.99996948242188" text="kategori" />
+          <TableColumn fx:id="colNo" prefWidth="41.5999755859375" text="No" />
+          <TableColumn fx:id="colNama" prefWidth="207.99999237060547" text="Nama" />
+            <TableColumn fx:id="colHarga" minWidth="0.0" prefWidth="108.79998779296875" text="harga" />
+            <TableColumn fx:id="colStock" prefWidth="55.20001220703125" text="stock" />
+            <TableColumn fx:id="colKategori" prefWidth="91.99996948242188" text="kategori" />
             <TableColumn fx:id="colAction" prefWidth="114.39996337890625" text="opsi" />
         </columns>
       </TableView>
       <Button layoutX="557.0" layoutY="51.0" mnemonicParsing="false" onAction="#tambahData" text="tambah data" />
+      <Button layoutX="23.0" layoutY="374.0" mnemonicParsing="false" onAction="#backBtnToDashboard" text="kembali" />
    </children>
 </AnchorPane>

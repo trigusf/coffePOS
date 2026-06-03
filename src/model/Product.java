@@ -25,7 +25,7 @@ public class Product {
         return stock;
     }
 
-    public String getCategory(){
+    public String getKategori(){
         return kategori;
     }
 
