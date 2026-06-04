@@ -1,8 +1,6 @@
 package ui.controller;
 
 import dao.productDAO;
-import javafx.beans.property.ReadOnlyMapProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,7 +12,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import java.util.Optional;
 import model.Product;
 
 import java.io.IOException;
@@ -24,7 +26,7 @@ public class produkController {
 //    button kembali
     @FXML
     public void  backBtnToDataProduk(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/ui/dataProduk.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/ui/produkPage/dataProduk.fxml"));
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
@@ -45,9 +47,14 @@ public class produkController {
     private Button btnTambahData;
 
     public void setLevel(int id_level){
-        if (id_level == 2){
+        if (id_level == 2 && btnTambahData != null){
             btnTambahData.setVisible(false);
             btnTambahData.setManaged(false);
+        }
+        if (colOpsi != null){
+            tableProduk
+                    .getColumns()
+                    .remove(colOpsi);
         }
     }
 
@@ -60,7 +67,7 @@ public class produkController {
 //  path ke tambah data
     @FXML
     public void tambahData(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/ui/tambahDataProduk.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/ui/produkPage/tambahDataProduk.fxml"));
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
@@ -71,7 +78,7 @@ public class produkController {
 
 
 
-//    tambah data
+
     @FXML
     private TextField txtNamaProduk;
 
@@ -83,6 +90,7 @@ public class produkController {
 
     @FXML
     private ComboBox<String> cbKategori;
+
     @FXML
     public void initialize(){
         if (cbKategori != null){
@@ -98,27 +106,29 @@ public class produkController {
         }
     }
 
-    public void submitProduk(ActionEvent event) throws IOException{
-        String namaProduk = txtNamaProduk.getText();
-        double harga = Double.parseDouble(txtHarga.getText());
-        int stock = Integer.parseInt(txtStock.getText());
-        String kategori = cbKategori.getValue();
+//  tambah data(
 
-        Product product = new Product(
-                namaProduk,
-                harga,
-                stock,
-                kategori
-        );
+            public void submitProduk(ActionEvent event) throws IOException{
+                String namaProduk = txtNamaProduk.getText();
+                double harga = Double.parseDouble(txtHarga.getText());
+                int stock = Integer.parseInt(txtStock.getText());
+                String kategori = cbKategori.getValue();
 
-        productDAO dao = new productDAO();
+                Product product = new Product(
+                        namaProduk,
+                        harga,
+                        stock,
+                        kategori
+                );
 
-        if (dao.tambahProduk(product)){
-            System.out.println("berhasil");
+                productDAO dao = new productDAO();
 
-            Parent root = FXMLLoader.load(getClass().getResource("/ui/dataProduk.fxml"));
-            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+                if (dao.tambahProduk(product)){
+                    System.out.println("berhasil");
+
+                    Parent root = FXMLLoader.load(getClass().getResource("/ui/produkPage/dataProduk.fxml"));
+                    Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                    stage.setScene(new Scene(root));
 
         }else {
             System.out.println("gagal");
@@ -128,6 +138,28 @@ public class produkController {
     }
 
 //    end of tambah data
+
+//    edit data
+
+        private Product selectedProduct;
+
+        public void setData(Product product){
+            selectedProduct = product;
+
+            txtNamaProduk.setText(product.getNamaProduk());
+
+            txtHarga.setText(String.valueOf(product.getHarga()));
+
+            txtStock.setText(String.valueOf(product.getStock()));
+
+            cbKategori.setValue(product.getKategori());
+        }
+
+        public void editProduk(){
+
+        }
+
+//    end of edit data
 
 
 //    tampil data
@@ -149,6 +181,10 @@ public class produkController {
 
     @FXML
     private TableColumn<Product, String> colKategori;
+
+    @FXML
+    private TableColumn<Product, Void> colOpsi;
+
 
 
 
@@ -182,6 +218,95 @@ public class produkController {
                         "kategori"
                 )
         );
+
+        colOpsi.setCellFactory(param ->
+                new TableCell<>(){
+                    private final Button btnEdit = new Button("edit");
+
+                    private final Button btnDelete = new Button("delete");
+
+                    private final HBox pane = new HBox(5, btnEdit, btnDelete);
+                    {
+
+// Edit data
+                        btnEdit.setOnAction(event -> {
+
+                            try{
+                                Product product = getTableView().getItems().get(getIndex());
+                                System.out.println("edit : " + product.getIdProduk());
+
+                                int id = product.getIdProduk();
+
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/produkPage/editDataProduk.fxml"));
+
+                                Parent root = loader.load();
+
+                                produkController controller = loader.getController();
+
+                                controller.setData(product);
+
+                                Stage stage = (Stage)getTableView().getScene().getWindow();
+
+                                stage.setScene(new Scene(root));
+
+                                stage.show();
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        });
+
+// End of Edit data
+
+//  Delete data
+                        btnDelete.setOnAction(event -> {
+                            Product product = getTableView().getItems().get(getIndex());
+                            System.out.println("delete : " + product.getIdProduk());
+
+                            int id = product.getIdProduk();
+
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                            alert.setTitle("Konfirmasi");
+
+                            alert.setHeaderText("Hapus Produk");
+
+                            alert.setContentText(
+                                    "Apakah anda yakin akan menghapus menu " + product.getNamaProduk() + " ?"
+                            );
+
+                            Optional<ButtonType> result = alert.showAndWait();
+
+                            if (result.isPresent() && result.get() == ButtonType.OK){
+                                productDAO dao = new productDAO();
+
+                                boolean hapusData = dao.deleteProduk(id);
+
+                                if (hapusData){
+                                    loadTable();
+                                }
+                            }
+
+
+                        });
+                    };
+
+//  End of Delete Data
+
+
+                    @Override
+                    protected void updateItem(
+                            Void item, boolean empty
+                    ){
+                        super.updateItem(item, empty);
+
+                        if(empty){
+                            setGraphic(null);
+                        }else {
+                            setGraphic(pane);
+                        }
+                    }
+                });
 
         productDAO dao = new productDAO();
 

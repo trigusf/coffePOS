@@ -11,6 +11,7 @@ import java.util.List;
 
 public class productDAO {
 
+//    tambah data
     public boolean tambahProduk(Product product){
         String query = "INSERT INTO product (nama_product, harga_product, stock, category) VALUES (?,?,?,?) ";
 
@@ -28,6 +29,32 @@ public class productDAO {
         }
     }
 
+//    end of tambah data
+
+//    hapus data
+
+    public boolean deleteProduk(int id){
+        String query = "DELETE FROM product WHERE id_product = ? ";
+
+        try(Connection koneksi = DBConnection.getConnection();
+            PreparedStatement ps = koneksi.prepareStatement(query);
+        ){
+            ps.setInt(1, id);
+
+            int rows = ps.executeUpdate();
+
+            return  rows > 0;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+//    end of hapus data
+
+//    tampil data
+
     public List<Product> getAllProduk(){
         List<Product> list = new ArrayList<>();
 
@@ -42,6 +69,7 @@ public class productDAO {
         ){
             while(rs.next()){
                 Product produk = new Product(
+                        rs.getInt("id_product"),
                         rs.getString("nama_product"),
                         rs.getDouble("harga_product"),
                         rs.getInt("Stock"),
@@ -54,6 +82,8 @@ public class productDAO {
         }
         return list;
     }
+
+//    end of tampil data
 
 
 }

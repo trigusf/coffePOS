@@ -8,10 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
-import model.Product;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 
 public class dasboardController {
@@ -35,7 +32,7 @@ public class dasboardController {
 
     @FXML
     public void openDataProduk(ActionEvent event) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/dataProduk.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/produkPage/dataProduk.fxml"));
 
         Parent root = loader.load();
 
