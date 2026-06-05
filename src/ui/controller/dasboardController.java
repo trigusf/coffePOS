@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
@@ -14,15 +15,12 @@ import java.io.IOException;
 public class dasboardController {
 
     @FXML
-    private Button btnDataProduk;
+    private Label welcomeUsername;
 
-//    public void setLevel(int id_level){
-//        System.out.println(id_level);
-//        if (id_level == 2){
-//            btnDataProduk.setVisible(false);
-//            btnDataProduk.setManaged(false);
-//        }
-//    }
+    public void setUsername(String username){
+        welcomeUsername.setText("Selamat Datang, " + username);
+    }
+
     @FXML
     private int idLevel;
 
@@ -47,8 +45,18 @@ public class dasboardController {
         stage.show();
     }
 
-    public void openTransaksi(){
+    public void openTransaksi(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/transaksiPage/transaksi.fxml"));
 
+        Parent root = loader.load();
+
+        transaksiController controller = loader.getController();
+
+        controller.setLevel(idLevel);
+
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void openRiwayat(){

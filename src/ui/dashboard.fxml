@@ -7,7 +7,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.controller.dasboardController">
    <children>
-      <Label layoutX="23.0" layoutY="49.0" prefHeight="30.0" prefWidth="554.0" text="Selamat Datang, Username" />
+      <Label fx:id="welcomeUsername" layoutX="23.0" layoutY="49.0" prefHeight="30.0" prefWidth="554.0" text=""/>
       <Label layoutX="23.0" layoutY="14.0" prefHeight="30.0" prefWidth="554.0" text="Kasir Coffe Brewspace">
          <font>
             <Font size="24.0" />

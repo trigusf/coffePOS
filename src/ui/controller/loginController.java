@@ -41,6 +41,7 @@ public class loginController {
                 dasboardController controller =
                         loader.getController();
 
+                controller.setUsername(user.getUsername());
                 controller.setLevel(user.getIdLevel());
 
                 Stage stage =

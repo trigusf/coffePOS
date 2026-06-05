@@ -41,5 +41,20 @@ public class Product {
         return kategori;
     }
 
+    public void setNamaProduk(String namaProduk){
+        this.namaProduk = namaProduk;
+    }
+
+    public void setHarga(double harga){
+        this.harga = harga;
+    }
+
+    public void setStock(int stock){
+        this.stock = stock;
+    }
+
+    public void setKategori(String kategori){
+        this.kategori = kategori;
+    }
 
 }

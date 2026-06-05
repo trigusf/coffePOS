@@ -51,7 +51,7 @@ public class produkController {
             btnTambahData.setVisible(false);
             btnTambahData.setManaged(false);
         }
-        if (colOpsi != null){
+        if (id_level == 2 && colOpsi != null){
             tableProduk
                     .getColumns()
                     .remove(colOpsi);
@@ -155,9 +155,41 @@ public class produkController {
             cbKategori.setValue(product.getKategori());
         }
 
-        public void editProduk(){
+        public void editProduk(ActionEvent event) throws IOException{
+
+            selectedProduct.setNamaProduk(
+                    txtNamaProduk.getText()
+            );
+
+            selectedProduct.setHarga(
+                    Double.parseDouble(txtHarga.getText())
+            );
+
+            selectedProduct.setStock(
+                    Integer.parseInt(txtStock.getText())
+            );
+
+            selectedProduct.setKategori(
+                    cbKategori.getValue()
+            );
+
+            productDAO dao = new productDAO();
+
+            if (dao.editProduk(selectedProduct)){
+                System.out.println("berhasil");
+
+                Parent root = FXMLLoader.load(getClass().getResource("/ui/produkPage/dataProduk.fxml"));
+                Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                stage.setScene(new Scene(root));
+            }else {
+                System.out.println("gagal");
+            }
+
+
 
         }
+
+
 
 //    end of edit data
 

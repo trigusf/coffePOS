@@ -31,6 +31,29 @@ public class productDAO {
 
 //    end of tambah data
 
+//    edit data
+
+        public boolean editProduk(Product product){
+            String query = "UPDATE product SET nama_product = ?, harga_product = ?, stock = ?, category = ? WHERE id_product = ?";
+
+            try(Connection koneksi = DBConnection.getConnection();
+                PreparedStatement ps = koneksi.prepareStatement(query)){
+                ps.setString(1, product.getNamaProduk());
+                ps.setDouble(2, product.getHarga());
+                ps.setInt(3, product.getStock());
+                ps.setString(4, product.getKategori());
+                ps.setInt(5, product.getIdProduk());
+
+                return ps.executeUpdate() > 0;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return false;
+        }
+
+//    end of edit data
+
+
 //    hapus data
 
     public boolean deleteProduk(int id){
@@ -41,9 +64,7 @@ public class productDAO {
         ){
             ps.setInt(1, id);
 
-            int rows = ps.executeUpdate();
-
-            return  rows > 0;
+            return  ps.executeUpdate() > 0;
 
         }catch (Exception e){
             e.printStackTrace();
