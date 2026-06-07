@@ -1,20 +1,20 @@
 package model;
 
-public class Product {
+public class Produk {
     private int idProduk;
     private String namaProduk;
     private double harga;
     private int stock;
     private String kategori;
 
-    public Product(String namaProduk, double harga, int stock, String kategori){
+    public Produk(String namaProduk, double harga, int stock, String kategori){
         this.namaProduk = namaProduk;
         this.harga = harga;
         this.stock = stock;
         this.kategori = kategori;
     }
 
-    public Product(int idProduk, String namaProduk, double harga, int stock, String kategori){
+    public Produk(int idProduk, String namaProduk, double harga, int stock, String kategori){
         this.idProduk = idProduk;
         this.namaProduk = namaProduk;
         this.harga = harga;

@@ -1,7 +1,7 @@
 package dao;
 
 import database.DBConnection;
-import model.Product;
+import model.Produk;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,10 +9,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class productDAO {
+public class produkDAO {
 
 //    tambah data
-    public boolean tambahProduk(Product product){
+    public boolean tambahProduk(Produk product){
         String query = "INSERT INTO product (nama_product, harga_product, stock, category) VALUES (?,?,?,?) ";
 
         try(Connection koneksi = DBConnection.getConnection();
@@ -33,7 +33,7 @@ public class productDAO {
 
 //    edit data
 
-        public boolean editProduk(Product product){
+        public boolean editProduk(Produk product){
             String query = "UPDATE product SET nama_product = ?, harga_product = ?, stock = ?, category = ? WHERE id_product = ?";
 
             try(Connection koneksi = DBConnection.getConnection();
@@ -76,8 +76,8 @@ public class productDAO {
 
 //    tampil data
 
-    public List<Product> getAllProduk(){
-        List<Product> list = new ArrayList<>();
+    public List<Produk> getAllProduk(){
+        List<Produk> list = new ArrayList<>();
 
         String query = "SELECT * FROM product";
 
@@ -89,7 +89,7 @@ public class productDAO {
             ResultSet rs = ps.executeQuery();
         ){
             while(rs.next()){
-                Product produk = new Product(
+                Produk produk = new Produk(
                         rs.getInt("id_product"),
                         rs.getString("nama_product"),
                         rs.getDouble("harga_product"),

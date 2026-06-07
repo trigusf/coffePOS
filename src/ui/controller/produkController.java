@@ -1,6 +1,6 @@
 package ui.controller;
 
-import dao.productDAO;
+import dao.produkDAO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import java.util.Optional;
-import model.Product;
+import model.Produk;
 
 import java.io.IOException;
 
@@ -114,14 +114,14 @@ public class produkController {
                 int stock = Integer.parseInt(txtStock.getText());
                 String kategori = cbKategori.getValue();
 
-                Product product = new Product(
+                Produk product = new Produk(
                         namaProduk,
                         harga,
                         stock,
                         kategori
                 );
 
-                productDAO dao = new productDAO();
+                produkDAO dao = new produkDAO();
 
                 if (dao.tambahProduk(product)){
                     System.out.println("berhasil");
@@ -141,9 +141,9 @@ public class produkController {
 
 //    edit data
 
-        private Product selectedProduct;
+        private Produk selectedProduct;
 
-        public void setData(Product product){
+        public void setData(Produk product){
             selectedProduct = product;
 
             txtNamaProduk.setText(product.getNamaProduk());
@@ -173,7 +173,7 @@ public class produkController {
                     cbKategori.getValue()
             );
 
-            productDAO dao = new productDAO();
+            produkDAO dao = new produkDAO();
 
             if (dao.editProduk(selectedProduct)){
                 System.out.println("berhasil");
@@ -197,25 +197,25 @@ public class produkController {
 //    tampil data
 
     @FXML
-    private TableView<Product> tableProduk;
+    private TableView<Produk> tableProduk;
 
     @FXML
-    private TableColumn<Product, Integer> colNo;
+    private TableColumn<Produk, Integer> colNo;
 
     @FXML
-    private TableColumn<Product, String> colNama;
+    private TableColumn<Produk, String> colNama;
 
     @FXML
-    private TableColumn<Product, Double> colHarga;
+    private TableColumn<Produk, Double> colHarga;
 
     @FXML
-    private TableColumn<Product, Integer> colStock;
+    private TableColumn<Produk, Integer> colStock;
 
     @FXML
-    private TableColumn<Product, String> colKategori;
+    private TableColumn<Produk, String> colKategori;
 
     @FXML
-    private TableColumn<Product, Void> colOpsi;
+    private TableColumn<Produk, Void> colOpsi;
 
 
 
@@ -264,7 +264,7 @@ public class produkController {
                         btnEdit.setOnAction(event -> {
 
                             try{
-                                Product product = getTableView().getItems().get(getIndex());
+                                Produk product = getTableView().getItems().get(getIndex());
                                 System.out.println("edit : " + product.getIdProduk());
 
                                 int id = product.getIdProduk();
@@ -292,7 +292,7 @@ public class produkController {
 
 //  Delete data
                         btnDelete.setOnAction(event -> {
-                            Product product = getTableView().getItems().get(getIndex());
+                            Produk product = getTableView().getItems().get(getIndex());
                             System.out.println("delete : " + product.getIdProduk());
 
                             int id = product.getIdProduk();
@@ -310,7 +310,7 @@ public class produkController {
                             Optional<ButtonType> result = alert.showAndWait();
 
                             if (result.isPresent() && result.get() == ButtonType.OK){
-                                productDAO dao = new productDAO();
+                                produkDAO dao = new produkDAO();
 
                                 boolean hapusData = dao.deleteProduk(id);
 
@@ -340,9 +340,9 @@ public class produkController {
                     }
                 });
 
-        productDAO dao = new productDAO();
+        produkDAO dao = new produkDAO();
 
-        ObservableList<Product> data = FXCollections.observableList(dao.getAllProduk());
+        ObservableList<Produk> data = FXCollections.observableList(dao.getAllProduk());
 
         tableProduk.setItems(data);
     }

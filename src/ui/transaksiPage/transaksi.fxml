@@ -26,7 +26,7 @@
             <Font name="System Bold" size="15.0" />
          </font>
       </Label>
-      <TableView layoutX="23.0" layoutY="89.0" prefHeight="497.0" prefWidth="455.0">
+      <TableView fx:id="tableProduk" layoutX="23.0" layoutY="89.0" prefHeight="497.0" prefWidth="455.0">
         <columns>
           <TableColumn fx:id="colNo" prefWidth="32.000030517578125" text="No" />
           <TableColumn fx:id="colProduk" prefWidth="236.79997634887695" text="Produk" />
@@ -35,7 +35,7 @@
             <TableColumn fx:id="colAksi" prefWidth="35.2000732421875" text="Aksi" />
         </columns>
       </TableView>
-      <TableView layoutX="489.0" layoutY="89.0" prefHeight="358.0" prefWidth="470.0">
+      <TableView fx:id="tableKeranjang" layoutX="489.0" layoutY="89.0" prefHeight="358.0" prefWidth="470.0">
         <columns>
           <TableColumn fx:id="colNoKeranjang" prefWidth="30.39996337890625" text="No" />
           <TableColumn fx:id="colProdukKeranjang" prefWidth="152.0" text="Produk" />
@@ -50,7 +50,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="849.0" layoutY="455.0" prefHeight="30.0" prefWidth="106.0" text="80.000">
+      <Label fx:id="txtTotal" alignment="CENTER_RIGHT" layoutX="733.0" layoutY="455.0" prefHeight="30.0" prefWidth="222.0" text="80.000">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -60,18 +60,18 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TextField layoutX="809.0" layoutY="487.0" />
+      <TextField fx:id="txtBayar" layoutX="732.0" layoutY="487.0" prefHeight="26.0" prefWidth="222.0" />
       <Label layoutX="489.0" layoutY="513.0" prefHeight="30.0" prefWidth="106.0" text="Kembalian">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER_RIGHT" layoutX="849.0" layoutY="513.0" prefHeight="30.0" prefWidth="106.0" text="80.000">
+      <Label fx:id="txtKembalian" alignment="CENTER_RIGHT" layoutX="597.0" layoutY="513.0" prefHeight="30.0" prefWidth="358.0" text="">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="checkoutTransaksi" layoutX="490.0" layoutY="543.0" mnemonicParsing="false" onAction="#btnCheckout" prefHeight="42.0" prefWidth="221.0" text="Checkout" />
+      <Button fx:id="checkoutTransaksi" layoutX="490.0" layoutY="543.0" mnemonicParsing="false" onAction="#hitungBayar" prefHeight="42.0" prefWidth="221.0" text="Checkout" />
       <Button fx:id="resetTransaksi" layoutX="732.0" layoutY="543.0" mnemonicParsing="false" onAction="#btnReset" prefHeight="42.0" prefWidth="222.0" text="Reset" />
       <Button fx:id="checkoutTransaksi1" layoutX="23.0" layoutY="26.0" mnemonicParsing="false" onAction="#backBtnToDashboard" prefHeight="30.0" prefWidth="94.0" text="kembali" />
     </children>
