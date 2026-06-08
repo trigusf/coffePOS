@@ -1,6 +1,7 @@
 package ui.controller;
 
 import dao.produkDAO;
+import dao.transaksiDAO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,12 +29,29 @@ import java.util.List;
 public class transaksiController {
 
     public void backBtnToDashboard(ActionEvent event)throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/ui/dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/dashboard.fxml"));
+
+        Parent root = loader.load();
+
+        dasboardController controller = loader.getController();
+
+        controller.setLevel(idLevel);
+
+        controller.setIdUser(idUser);
+
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
     }
 
+    private int idUser;
+    private int idLevel;
+    public void setIdLevel(int idLevel){
+        this.idLevel = idLevel;
+    }
+    public void setIdUser(int idUser){
+        this.idUser = idUser;
+    }
 
 //    tampil data
 
@@ -234,38 +252,59 @@ public class transaksiController {
     }
 
     @FXML
-    public void hitungBayar(){
+    public void checkout(){
         double total = hitungTotal();
 
         double bayar = Double.parseDouble(txtBayar.getText());
 
         if (bayar < total){
             System.out.print("bayar nya kurang kocak");
-            txtKembalian.setText("Uang anda kurang, Miskin!");
-        }else{
-            double  kembalian = bayar - total;
-            txtKembalian.setText(String.valueOf(kembalian));
+            txtKembalian.setText("uang kurang");
+            return;
         }
+        double kembali = bayar - total;
+
+        txtKembalian.setText(String.valueOf(kembali));
+        transaksiDAO dao = new transaksiDAO();
+
+        int idTransaksi = dao.insertTransaksi(
+                idUser,total,bayar,kembali
+        );
+        System.out.println("id transaksi = " + idTransaksi);
+
+        if (idTransaksi == 0){
+            System.out.println("gagal ambil id transaksi");
+            return;
+        }
+
+        dao.insertDetail(
+                idTransaksi,keranjang
+        );
+
+        dao.updateStock(keranjang);
+
+        keranjang.clear();
+        tableKeranjang.refresh();
+        updateTotal();
+        txtBayar.clear();
 
 
     }
-
-
-
-
 
 //    end of hitung total
 
 
 
-
-    public void btnCheckout(){
-        System.out.println("checkout");
-    }
-
     public void btnReset(){
+
         System.out.println("reset");
+        keranjang.clear();
+        tableKeranjang.refresh();
+        updateTotal();
+        txtBayar.clear();
+        txtKembalian.setText("0");
     }
+
 
 
     public void setLevel(int idLevel) {

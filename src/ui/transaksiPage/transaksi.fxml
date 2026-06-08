@@ -66,14 +66,14 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label fx:id="txtKembalian" alignment="CENTER_RIGHT" layoutX="597.0" layoutY="513.0" prefHeight="30.0" prefWidth="358.0" text="">
+      <Label fx:id="txtKembalian" alignment="CENTER_RIGHT" layoutX="597.0" layoutY="513.0" prefHeight="30.0" prefWidth="358.0" text="0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="checkoutTransaksi" layoutX="490.0" layoutY="543.0" mnemonicParsing="false" onAction="#hitungBayar" prefHeight="42.0" prefWidth="221.0" text="Checkout" />
+      <Button fx:id="checkout" layoutX="490.0" layoutY="543.0" mnemonicParsing="false" onAction="#checkout" prefHeight="42.0" prefWidth="221.0" text="Checkout" />
       <Button fx:id="resetTransaksi" layoutX="732.0" layoutY="543.0" mnemonicParsing="false" onAction="#btnReset" prefHeight="42.0" prefWidth="222.0" text="Reset" />
-      <Button fx:id="checkoutTransaksi1" layoutX="23.0" layoutY="26.0" mnemonicParsing="false" onAction="#backBtnToDashboard" prefHeight="30.0" prefWidth="94.0" text="kembali" />
+      <Button layoutX="23.0" layoutY="26.0" mnemonicParsing="false" onAction="#backBtnToDashboard" prefHeight="30.0" prefWidth="94.0" text="kembali" />
     </children>
 
 </AnchorPane>

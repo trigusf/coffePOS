@@ -21,11 +21,17 @@ public class dasboardController {
         welcomeUsername.setText("Selamat Datang, " + username);
     }
 
-    @FXML
     private int idLevel;
+
+    private int idUser;
 
     public void setLevel(int idLevel){
         this.idLevel = idLevel;
+        System.out.println("Dashboard dapet level: " + idLevel);
+    }
+
+    public void setIdUser(int idUser){
+        this.idUser = idUser;
     }
 
     @FXML
@@ -36,7 +42,8 @@ public class dasboardController {
 
         produkController controller = loader.getController();
 
-        controller.setLevel(idLevel);
+        controller.setIdLevel(idLevel);
+        controller.setIdUser(idUser);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
@@ -52,7 +59,9 @@ public class dasboardController {
 
         transaksiController controller = loader.getController();
 
-        controller.setLevel(idLevel);
+        controller.setIdLevel(idLevel);
+        controller.setIdUser(idUser);
+
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));

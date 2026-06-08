@@ -23,6 +23,16 @@ import java.io.IOException;
 
 public class produkController {
 
+    @FXML
+    private int idLevel;
+
+    @FXML
+    private int idUser;
+
+    public void setIdUser(int idUser){
+        this.idUser = idUser;
+    }
+
 //    button kembali
     @FXML
     public void  backBtnToDataProduk(ActionEvent event) throws IOException{
@@ -33,12 +43,21 @@ public class produkController {
     }
 
     @FXML
-    public void backBtnToDashboard(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/ui/dashboard.fxml"));
-        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
+        public void backBtnToDashboard(ActionEvent event) throws IOException{
+           FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/dashboard.fxml"));
+
+           Parent root = loader.load();
+
+           dasboardController controller = loader.getController();
+
+           controller.setLevel(idLevel);
+
+           controller.setIdUser(idUser);
+
+           Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+           stage.setScene(new Scene(root));
+           stage.show();
+        }
 //    end of button kembali
 
 //    button tambah data
@@ -46,7 +65,8 @@ public class produkController {
     @FXML
     private Button btnTambahData;
 
-    public void setLevel(int id_level){
+    public void setIdLevel(int id_level){
+        this.idLevel = id_level;
         if (id_level == 2 && btnTambahData != null){
             btnTambahData.setVisible(false);
             btnTambahData.setManaged(false);

@@ -43,6 +43,7 @@ public class loginController {
 
                 controller.setUsername(user.getUsername());
                 controller.setLevel(user.getIdLevel());
+                controller.setIdUser(user.getId());
 
                 Stage stage =
                         (Stage)((Node)event.getSource())

@@ -29,7 +29,7 @@
             <TableColumn fx:id="colOpsi" prefWidth="114.39996337890625" text="opsi" />
         </columns>
       </TableView>
-      <Button layoutX="557.0" layoutY="51.0" mnemonicParsing="false" onAction="#tambahData" text="tambah data" />
+      <Button layoutX="557.0" fx:id="btnTambahData" layoutY="51.0" mnemonicParsing="false" onAction="#tambahData" text="tambah data" />
       <Button layoutX="23.0" layoutY="374.0" mnemonicParsing="false" onAction="#backBtnToDashboard" text="kembali" />
    </children>
 </AnchorPane>
