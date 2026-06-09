@@ -122,7 +122,7 @@ public class produkController {
         }
 
         if(tableProduk != null){
-            loadTable();
+                loadTable();
         }
     }
 
@@ -280,12 +280,12 @@ public class produkController {
                     private final HBox pane = new HBox(5, btnEdit, btnDelete);
                     {
 
-// Edit data
+// btn Edit data
                         btnEdit.setOnAction(event -> {
 
                             try{
                                 Produk product = getTableView().getItems().get(getIndex());
-                                System.out.println("edit : " + product.getIdProduk());
+                                System.out.println("id : " + product.getIdProduk());
 
                                 int id = product.getIdProduk();
 
@@ -308,7 +308,7 @@ public class produkController {
                             }
                         });
 
-// End of Edit data
+// End of btn Edit data
 
 //  Delete data
                         btnDelete.setOnAction(event -> {

@@ -36,7 +36,6 @@ public class transaksiController {
         dasboardController controller = loader.getController();
 
         controller.setLevel(idLevel);
-
         controller.setIdUser(idUser);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -308,5 +307,6 @@ public class transaksiController {
 
 
     public void setLevel(int idLevel) {
+        this.idLevel = idLevel;
     }
 }

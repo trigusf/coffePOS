@@ -31,6 +31,7 @@ public class dasboardController {
     }
 
     public void setIdUser(int idUser){
+
         this.idUser = idUser;
     }
 
@@ -59,7 +60,7 @@ public class dasboardController {
 
         transaksiController controller = loader.getController();
 
-        controller.setIdLevel(idLevel);
+        controller.setLevel(idLevel);
         controller.setIdUser(idUser);
 
 
@@ -68,8 +69,20 @@ public class dasboardController {
         stage.show();
     }
 
-    public void openRiwayat(){
+    public void openRiwayat(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/riwayatPage/riwayatTransaksi.fxml"));
 
+        Parent root = loader.load();
+
+        riwayatController controller = loader.getController();
+
+        controller.setLevel(idLevel);
+        controller.setIdUser(idUser);
+
+
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void logout(ActionEvent event) throws IOException{
