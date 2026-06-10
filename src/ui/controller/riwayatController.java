@@ -20,8 +20,10 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import javafx.scene.control.Label;
 import java.util.List;
 
+import model.DetailTransaksi;
 import model.Riwayat;
 
 public class riwayatController {
@@ -110,6 +112,9 @@ public class riwayatController {
 
                                 riwayatController controller = loader.getController();
 
+                                controller.setLevel(idLevel);
+                                controller.setIdUser(idUser);
+
                                 controller.setData(riwayat);
 
                                 Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -170,7 +175,24 @@ public class riwayatController {
         totalHarga.setText(String.valueOf("Total : " + riwayat.getTotal()));
         totalBayar.setText(String.valueOf("Bayar : " + riwayat.getBayar()));
         totalKembali.setText(String.valueOf("Kembalian : "+ riwayat.getKembali()));
+        loadDetailbarang();
+    }
 
+    private void loadDetailbarang(){
+        riwayatDAO dao = new riwayatDAO();
+        List<DetailTransaksi> detail = dao.detailTransaksi(
+                selectedRiwayat.getIdTransaksi()
+        );
+        detailTransaksi.getChildren().clear();
+
+        for(DetailTransaksi item : detail){
+
+            Label label = new Label(
+                    item.getNamaProduk() + "   " + item.getHarga() + "   " + "   " + item.getQty() + "x   " + item.getSubtotal()
+            );
+
+            detailTransaksi.getChildren().add(label);
+        }
     }
 
 //    end of tampil data detail transaksi

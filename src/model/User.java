@@ -5,6 +5,7 @@ public class User {
     private String username;
     private String password;
     private int idLevel;
+    private String level;
 
     public User(int id, String username, String password, int idLevel){
         this.id = id;
@@ -12,6 +13,13 @@ public class User {
         this.password = password;
         this.idLevel = idLevel;
     }
+
+    public User(String username, String level){
+        this.username = username;
+        this.level = level;
+    }
+
+
 
     public int getId(){return id;}
     public String getUsername() {

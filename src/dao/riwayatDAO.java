@@ -1,6 +1,7 @@
 package dao;
 
 import database.DBConnection;
+import model.DetailTransaksi;
 import model.Riwayat;
 
 import java.sql.Connection;
@@ -43,7 +44,33 @@ public class riwayatDAO {
 
 //    query tampilan detail riwayat / struk
 
+    public List<DetailTransaksi> detailTransaksi(int idTransaksi){
+        List<DetailTransaksi> list = new ArrayList<>();
 
+        String query = "SELECT detail_transaction.*, product.nama_product FROM detail_transaction JOIN product ON detail_transaction.id_product = product.id_product WHERE detail_transaction.id_transaction = ?";
+
+        try(PreparedStatement ps = koneksi.prepareStatement(query);){
+            ps.setInt(1, idTransaksi);
+
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    DetailTransaksi detail = new DetailTransaksi(
+                            rs.getString("nama_product"),
+                            rs.getDouble("harga"),
+                            rs.getInt("qty"),
+                            rs.getDouble("subtotal"),
+                            rs.getInt("id_transaction")
+                    );
+                    list.add(detail);
+                }
+                return list;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
 
 //    end of query tampilan detail riwayat / struk
 

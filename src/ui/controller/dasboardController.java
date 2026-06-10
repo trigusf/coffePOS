@@ -85,6 +85,22 @@ public class dasboardController {
         stage.show();
     }
 
+    public void openUser(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/userPage/dataUser.fxml"));
+
+        Parent root = loader.load();
+
+        userController controller = loader.getController();
+
+        controller.setLevel(idLevel);
+        controller.setIdUser(idUser);
+
+
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
     public void logout(ActionEvent event) throws IOException{
         Parent root = FXMLLoader.load(
                 getClass().getResource("/ui/login.fxml")
