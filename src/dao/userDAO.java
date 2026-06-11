@@ -62,6 +62,27 @@ public class userDAO {
             return list;
         }
 //    end of tampil data
+
+//    tambah data
+
+        public boolean tambahData(User user){
+            String query = "INSERT INTO users (username, password, id_level) VALUES (?,?,?)";
+
+            try(PreparedStatement ps = koneksi.prepareStatement(query)){
+                ps.setString(1, user.getUsername());
+                ps.setString(2, user.getPassword());
+                ps.setInt(3, user.getIdLevel());
+
+                return  ps.executeUpdate() > 0;
+            }catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+
+        }
+
+//    end of tambah data
+
 //    hapus data
         public void hapusUser(){
 

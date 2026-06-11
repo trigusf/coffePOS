@@ -85,6 +85,7 @@ public class dasboardController {
         stage.show();
     }
 
+    @FXML
     public void openUser(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/userPage/dataUser.fxml"));
 

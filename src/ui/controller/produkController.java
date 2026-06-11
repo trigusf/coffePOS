@@ -36,7 +36,15 @@ public class produkController {
 //    button kembali
     @FXML
     public void  backBtnToDataProduk(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("/ui/produkPage/dataProduk.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/produkPage/dataProduk.fxml"));
+        Parent root = loader.load();
+
+        produkController controller = loader.getController();
+
+        controller.setIdLevel(idLevel);
+
+        controller.setIdUser(idUser);
+
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root));
         stage.show();
@@ -67,6 +75,7 @@ public class produkController {
 
     public void setIdLevel(int id_level){
         this.idLevel = id_level;
+        System.out.println("id level : " + this.idLevel);
         if (id_level == 2 && btnTambahData != null){
             btnTambahData.setVisible(false);
             btnTambahData.setManaged(false);
@@ -87,10 +96,16 @@ public class produkController {
 //  path ke tambah data
     @FXML
     public void tambahData(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/ui/produkPage/tambahDataProduk.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/produkPage/tambahDataProduk.fxml"));
+        Parent root = loader.load();
+
+        produkController controller = loader.getController();
+
+        controller.setIdLevel(idLevel);
+
+        controller.setIdUser(idUser);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-
         stage.setScene(new Scene(root));
         stage.show();
     }
@@ -200,6 +215,7 @@ public class produkController {
 
                 Parent root = FXMLLoader.load(getClass().getResource("/ui/produkPage/dataProduk.fxml"));
                 Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
                 stage.setScene(new Scene(root));
             }else {
                 System.out.println("gagal");
@@ -296,6 +312,8 @@ public class produkController {
                                 produkController controller = loader.getController();
 
                                 controller.setData(product);
+                                controller.setIdLevel(idLevel);
+                                controller.setIdUser(idUser);
 
                                 Stage stage = (Stage)getTableView().getScene().getWindow();
 

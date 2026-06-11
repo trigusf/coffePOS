@@ -14,17 +14,18 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import model.Produk;
 import model.User;
 
+import javax.swing.*;
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 public class userController {
 
     private int idLevel;
     private int idUser;
+
+    @FXML
+    private Button btnTambahData;
 
     public void setIdUser(int idUser){
         this.idUser = idUser;
@@ -32,7 +33,29 @@ public class userController {
 
     public void setLevel(int idLevel){
         this.idLevel = idLevel;
+
+        if (idLevel == 2 && btnTambahData != null){
+            btnTambahData.setVisible(false);
+            btnTambahData.setManaged(false);
+        }
+
+        if (idLevel == 2 && colOpsi != null){
+            tableUser.getColumns().remove(colOpsi);
+        }
+
     }
+
+    @FXML
+    public void tambahData(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/ui/userPage/tambahDataUser.fxml"));
+
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+
 
     @FXML
     public void backBtnToDashboard(ActionEvent event) throws IOException {
@@ -41,6 +64,22 @@ public class userController {
         Parent root = loader.load();
 
         dasboardController controller = loader.getController();
+
+        controller.setLevel(idLevel);
+
+        controller.setIdUser(idUser);
+
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    public void backBtnToDataUser(ActionEvent event)throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/userPage/dataUser.fxml"));
+
+        Parent root = loader.load();
+
+        userController controller = loader.getController();
 
         controller.setLevel(idLevel);
 
@@ -85,6 +124,7 @@ public class userController {
                         btnEdit.setOnAction(event -> {
                             User user = getTableView().getItems().get(getIndex());
                             System.out.println("id : " + user);
+
                         });
 
                         btnDelete.setOnAction(event -> {
@@ -135,14 +175,56 @@ public class userController {
         if (tableUser != null){
             loadTable();
         }
+
+        if (admin != null && kasir != null){
+            admin.setToggleGroup(levelGroup);
+            kasir.setToggleGroup(levelGroup);
+
+            admin.setUserData(1);
+            kasir.setUserData(2);
+        }
+
     }
 
-    public void tambahData(){
 
-    }
+    @FXML
+    private TextField txtUsername;
+    @FXML
+    private TextField txtPassword;
+    @FXML
+    private RadioButton admin;
+    @FXML
+    private RadioButton kasir;
+    @FXML
+    private ToggleGroup levelGroup;
 
-    public void backBtnToDashboard(){
+    @FXML
+    public void submitUser(ActionEvent event) throws IOException{
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        Toggle selected = levelGroup.getSelectedToggle();
 
+        if (selected == null){
+            System.out.println("Level wajib di isi");
+            return;
+        }
+        int idLevel = (int) selected.getUserData();
+
+        User user = new User(
+                username,
+                password,
+                idLevel
+        );
+
+        userDAO dao = new userDAO();
+
+        if (dao.tambahData(user)){
+            System.out.println("berhasil");
+
+            Parent root = FXMLLoader.load(getClass().getResource("/ui/userPage/dataUser.fxml"));
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+        }
     }
 
 

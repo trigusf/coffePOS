@@ -21,9 +21,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import model.Keranjang;
 import model.Produk;
+import model.Riwayat;
 
+import javax.swing.plaf.synth.SynthTextAreaUI;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 public class transaksiController {
@@ -112,7 +115,11 @@ public class transaksiController {
                                 System.out.println("Stock tidak mencukupi");
                             }
                         }else{
-                            keranjang.add(new Keranjang(produk, 1));
+                            if (produk.getStock() > 0){
+                                keranjang.add(new Keranjang(produk, 1));
+                            }else {
+                                System.out.println("stock habis");
+                            }
                         }
                         updateTotal();
                     });
@@ -251,7 +258,7 @@ public class transaksiController {
     }
 
     @FXML
-    public void checkout(){
+    public void checkout(ActionEvent event)throws IOException{
         double total = hitungTotal();
 
         double bayar = Double.parseDouble(txtBayar.getText());
@@ -282,10 +289,40 @@ public class transaksiController {
 
         dao.updateStock(keranjang);
 
-        keranjang.clear();
-        tableKeranjang.refresh();
-        updateTotal();
-        txtBayar.clear();
+        Riwayat riwayat =
+                new Riwayat(
+                        idTransaksi,
+                        idUser,
+                        bayar,
+                        total,
+                        kembali,
+                        new Date()
+                );
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/riwayatPage/detailRiwayatTransaksi.fxml"));
+
+        Parent root =
+                loader.load();
+
+        riwayatController controller = loader.getController();
+
+        controller.setData(riwayat);
+        controller.setLevel(idLevel);
+        controller.setIdUser(idUser);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        stage.setScene(
+                new Scene(root)
+        );
+
+        stage.show();
+
+
+//        keranjang.clear();
+//        tableKeranjang.refresh();
+//        updateTotal();
+//        txtBayar.clear();
 
 
     }

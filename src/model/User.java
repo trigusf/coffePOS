@@ -19,6 +19,12 @@ public class User {
         this.level = level;
     }
 
+    public User(String username, String password, int idLevel){
+        this.username = username;
+        this.password = password;
+        this.idLevel = idLevel;
+    }
+
 
 
     public int getId(){return id;}
@@ -28,4 +34,6 @@ public class User {
     public int getIdLevel(){
         return idLevel;
     }
+    public String getPassword(){return password;}
+    public String getLevel(){return level;}
 }

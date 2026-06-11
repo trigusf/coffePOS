@@ -71,8 +71,8 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button fx:id="checkout" layoutX="490.0" layoutY="543.0" mnemonicParsing="false" onAction="#checkout" prefHeight="42.0" prefWidth="221.0" text="Checkout" />
-      <Button fx:id="resetTransaksi" layoutX="732.0" layoutY="543.0" mnemonicParsing="false" onAction="#btnReset" prefHeight="42.0" prefWidth="222.0" text="Reset" />
+      <Button fx:id="checkout" layoutX="733.0" layoutY="543.0" mnemonicParsing="false" onAction="#checkout" prefHeight="42.0" prefWidth="221.0" text="Checkout" />
+      <Button fx:id="resetTransaksi" layoutX="490.0" layoutY="543.0" mnemonicParsing="false" onAction="#btnReset" prefHeight="42.0" prefWidth="222.0" text="Reset" />
       <Button layoutX="23.0" layoutY="26.0" mnemonicParsing="false" onAction="#backBtnToDashboard" prefHeight="30.0" prefWidth="94.0" text="kembali" />
     </children>
 
