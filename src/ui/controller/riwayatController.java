@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import javafx.scene.control.Label;
+
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import model.DetailTransaksi;
@@ -170,8 +172,9 @@ public class riwayatController {
     private Riwayat selectedRiwayat;
     public void setData(Riwayat riwayat){
         selectedRiwayat = riwayat;
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd");
         noStruk.setText(String.valueOf("No. Struk : "+ riwayat.getIdTransaksi()));
-        dateTransaksi.setText(String.valueOf(riwayat.getTanggal()));
+        dateTransaksi.setText(sdf.format(riwayat.getTanggal()));
         totalHarga.setText(String.valueOf("Total : " + riwayat.getTotal()));
         totalBayar.setText(String.valueOf("Bayar : " + riwayat.getBayar()));
         totalKembali.setText(String.valueOf("Kembalian : "+ riwayat.getKembali()));

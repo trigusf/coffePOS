@@ -18,6 +18,7 @@ import model.User;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.Optional;
 
 public class userController {
 
@@ -47,7 +48,13 @@ public class userController {
 
     @FXML
     public void tambahData(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/ui/userPage/tambahDataUser.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/userPage/tambahDataUser.fxml"));
+        Parent root = loader.load();
+
+        userController controller = loader.getController();
+
+        controller.setLevel(idLevel);
+        controller.setIdUser(idUser);
 
         Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
 
@@ -131,25 +138,32 @@ public class userController {
                             User user = getTableView().getItems().get(getIndex());
                             System.out.println("id : " + user);
 
-//                            int id = user.getId();
-//                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//
-//                            alert.setTitle("Konfimasi");
-//
-//                            alert.setHeaderText("Hapus Data User");
-//
-//                            alert.setContentText(
-//                                    "Apakah anda yakin akan menghapus menu " + user.getUsername() + " ?"
-//                            );
-//                            Optional<ButtonType> result = alert.showAndWait();
-//                            if (result.isPresent() && result.get() == ButtonType.OK){
-//                                userDAO dao = new userDAO();
-//
-//                                boolean hapusData = dao.hapusUser(id);
-//                                if (hapusData){
-//                                    loadTable();
-//                                }
-//                            }
+                            int id = user.getId();
+
+                            System.out.println("id : " + id);
+
+                            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
+                            alert.setTitle("Konfimasi");
+
+                            alert.setHeaderText("Hapus Data User");
+
+                            alert.setContentText(
+                                    "Apakah anda yakin akan menghapus menu " + user.getUsername() + " ?"
+                            );
+                            Optional<ButtonType> result = alert.showAndWait();
+                            if (result.isPresent() && result.get() == ButtonType.OK){
+                                userDAO dao = new userDAO();
+
+                                System.out.println("hapus : " + id);
+
+                                boolean hapusData = dao.hapusUser(id);
+
+                                System.out.println("hasil : " + hapusData);
+                                if (hapusData){
+                                    loadTable();
+                                }
+                            }
                         });
 
                     };
@@ -204,10 +218,17 @@ public class userController {
         String password = txtPassword.getText();
         Toggle selected = levelGroup.getSelectedToggle();
 
-        if (selected == null){
-            System.out.println("Level wajib di isi");
+        if (txtUsername.getText().trim().isEmpty() || txtPassword.getText().trim().isEmpty() || levelGroup.getSelectedToggle() == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+
+            alert.setTitle("Pertingatan");
+            alert.setHeaderText(null);
+
+            alert.setContentText("Semua Field Wajib Di isi");
+            alert.showAndWait();
             return;
         }
+
         int idLevel = (int) selected.getUserData();
 
         User user = new User(
@@ -221,7 +242,15 @@ public class userController {
         if (dao.tambahData(user)){
             System.out.println("berhasil");
 
-            Parent root = FXMLLoader.load(getClass().getResource("/ui/userPage/dataUser.fxml"));
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/userPage/dataUser.fxml"));
+            Parent root = loader.load();
+
+            userController controller = loader.getController();
+
+            controller.setLevel(idLevel);
+            controller.setIdUser(idUser);
+
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
         }

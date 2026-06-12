@@ -14,7 +14,8 @@ public class User {
         this.idLevel = idLevel;
     }
 
-    public User(String username, String level){
+    public User(int id, String username, String level){
+        this.id = id;
         this.username = username;
         this.level = level;
     }

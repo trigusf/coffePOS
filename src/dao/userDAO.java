@@ -50,6 +50,7 @@ public class userDAO {
             ResultSet rs = ps.executeQuery();){
                 while (rs.next()){
                     User user = new User(
+                            rs.getInt("id_user"),
                             rs.getString("username"),
                             rs.getString("level")
                     );
@@ -84,8 +85,16 @@ public class userDAO {
 //    end of tambah data
 
 //    hapus data
-        public void hapusUser(){
+        public boolean hapusUser(int id){
+            String query = "DELETE FROM users WHERE id_user = ?";
 
+            try(PreparedStatement ps = koneksi.prepareStatement(query);){
+                ps.setInt(1, id);
+                return ps.executeUpdate() > 0;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return false;
         }
 //    end of hapus data
 }
