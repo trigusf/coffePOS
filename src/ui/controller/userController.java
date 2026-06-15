@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.User;
 
@@ -28,8 +29,31 @@ public class userController {
     @FXML
     private Button btnTambahData;
 
+    @FXML
+    private TextField updateUsername;
+    @FXML
+    private TextField updatePassword;
+    @FXML
+    private Text txtlevel;
+
     public void setIdUser(int idUser){
+
         this.idUser = idUser;
+
+        userDAO dao = new userDAO();
+
+        User user = dao.loadDataUser(idUser);
+
+        if(user != null){
+            System.out.println("id user : " + idUser);
+
+            if (updateUsername != null && updatePassword != null && txtlevel != null){
+                updateUsername.setText(user.getUsername());
+                updatePassword.setText(user.getPassword());
+                txtlevel.setText("Role : " + user.getLevel());
+            }
+
+        }
     }
 
     public void setLevel(int idLevel){
@@ -124,16 +148,9 @@ public class userController {
         );
         colOpsi.setCellFactory(param ->
                 new TableCell<>(){
-                    private final Button btnEdit = new Button("edit");
+
                     private final Button btnDelete = new Button("delete");
-                    private HBox pane = new HBox(5, btnEdit, btnDelete);
                     {
-                        btnEdit.setOnAction(event -> {
-                            User user = getTableView().getItems().get(getIndex());
-                            System.out.println("id : " + user);
-
-                        });
-
                         btnDelete.setOnAction(event -> {
                             User user = getTableView().getItems().get(getIndex());
                             System.out.println("id : " + user);
@@ -173,7 +190,7 @@ public class userController {
                         if(empty){
                             setGraphic(null);
                         }else {
-                            setGraphic(pane);
+                            setGraphic(btnDelete);
                         }
                     }
 
@@ -256,5 +273,33 @@ public class userController {
         }
     }
 
+
+
+    public void updateProfile(ActionEvent event) throws IOException{
+        String username = updateUsername.getText();
+        String password = updatePassword.getText();
+
+        userDAO dao = new userDAO();
+
+        boolean berhasil = dao.updateProfile(idUser, username, password);
+
+        if (berhasil){
+            System.out.println("berhasil");
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/dashboard.fxml"));
+            Parent root = loader.load();
+
+            dasboardController controller = loader.getController();
+
+            controller.setLevel(idLevel);
+            controller.setIdUser(idUser);
+
+            Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+
+        }else {
+            System.out.println("gagal");
+        }
+    }
 
 }

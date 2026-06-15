@@ -97,4 +97,46 @@ public class userDAO {
             return false;
         }
 //    end of hapus data
+
+//    load data user sesuai ID
+
+        public User loadDataUser(int idUser){
+            String query = "SELECT users.*, level.level FROM users JOIN level ON users.id_level = level.id_level WHERE id_user = ?";
+
+            try(PreparedStatement ps = koneksi.prepareStatement(query);){
+                ps.setInt(1, idUser);
+
+                ResultSet rs = ps.executeQuery();
+
+                if (rs.next()){
+                    return new User(
+                            rs.getInt("id_user"),
+                            rs.getString("username"),
+                            rs.getString("password"),
+                            rs.getString("level")
+                    );
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+//    end of load data user sesuai ID
+
+//    update profile
+        public boolean updateProfile(int idUser, String username, String password){
+            String query = "UPDATE users SET username = ?, password = ? WHERE id_user = ?";
+            try(PreparedStatement ps = koneksi.prepareStatement(query);) {
+                ps.setString(1, username);
+                ps.setString(2, password);
+                ps.setInt(3, idUser);
+
+                return ps.executeUpdate() > 0;
+            }catch (Exception e ){
+                e.printStackTrace();
+            }
+            return false;
+        }
+//    end of update profile
 }

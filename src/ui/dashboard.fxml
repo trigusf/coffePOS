@@ -17,6 +17,7 @@
       <Button layoutX="23.0" layoutY="151.0" mnemonicParsing="false" onAction="#openTransaksi" prefHeight="25.0" prefWidth="152.0" text="Transaksi" />
       <Button layoutX="23.0" layoutY="183.0" mnemonicParsing="false" onAction="#openRiwayat" prefHeight="25.0" prefWidth="152.0" text="Riwayat" />
       <Button layoutX="23.0" layoutY="311.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="152.0" text="Logout" />
-      <Button layoutX="23.0" layoutY="119.0" mnemonicParsing="false" onAction="#openUser" prefHeight="25.0" prefWidth="152.0" text="Data User" />
+      <Button fx:id="btnDataUser" layoutX="23.0" layoutY="119.0" mnemonicParsing="false" onAction="#openUser" prefHeight="25.0" prefWidth="152.0" text="Data User" />
+      <Button fx:id="btnEditProfile" layoutX="503.0" layoutY="88.0" mnemonicParsing="false" onAction="#openEditProfile" text="edit profile" />
    </children>
 </Pane>

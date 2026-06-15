@@ -14,6 +14,10 @@ import java.io.IOException;
 
 public class dasboardController {
 
+
+    @FXML
+    private Button btnDataUser;
+
     @FXML
     private Label welcomeUsername;
 
@@ -28,6 +32,12 @@ public class dasboardController {
     public void setLevel(int idLevel){
         this.idLevel = idLevel;
         System.out.println("Dashboard dapet level: " + idLevel);
+
+        if (idLevel == 2 && btnDataUser != null){
+            btnDataUser.setVisible(false);
+            btnDataUser.setManaged(false);
+        }
+
     }
 
     public void setIdUser(int idUser){
@@ -85,6 +95,9 @@ public class dasboardController {
         stage.show();
     }
 
+
+
+
     @FXML
     public void openUser(ActionEvent event) throws IOException{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/userPage/dataUser.fxml"));
@@ -101,6 +114,25 @@ public class dasboardController {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    @FXML
+    public void openEditProfile(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/userPage/editDataUser.fxml"));
+
+        Parent root = loader.load();
+
+        userController controller = loader.getController();
+
+        controller.setLevel(idLevel);
+        controller.setIdUser(idUser);
+
+
+        Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+
 
     public void logout(ActionEvent event) throws IOException{
         Parent root = FXMLLoader.load(
