@@ -246,12 +246,12 @@ public class userController {
             return;
         }
 
-        int idLevel = (int) selected.getUserData();
+        int newidLevel = (int) selected.getUserData();
 
         User user = new User(
                 username,
                 password,
-                idLevel
+                newidLevel
         );
 
         userDAO dao = new userDAO();
@@ -265,8 +265,10 @@ public class userController {
 
             userController controller = loader.getController();
 
-            controller.setLevel(idLevel);
-            controller.setIdUser(idUser);
+
+            controller.setLevel(this.idLevel);
+            controller.setIdUser(this.idUser);
+            System.out.println("id level : " + idLevel);
 
             Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
