@@ -13,9 +13,10 @@ public class Main extends Application{
     @Override
     public void start(Stage stage)throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ui/login.fxml"));
-        Scene scene = new Scene(loader.load(),800,600);
+        Scene scene = new Scene(loader.load(),1200,700);
         stage.setScene(scene);
         stage.setTitle("BrewSpace");
+        stage.setMaximized(true);
         stage.show();
     }
 

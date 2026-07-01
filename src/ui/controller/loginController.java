@@ -34,23 +34,23 @@ public class loginController {
             try{
                 System.out.println(user.getUsername());
                 System.out.println(user.getIdLevel());
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/dashboard.fxml"));
 
                 Parent root = loader.load();
 
-                dasboardController controller =
-                        loader.getController();
+                dasboardController controller = loader.getController();
 
                 controller.setUsername(user.getUsername());
                 controller.setLevel(user.getIdLevel());
                 controller.setIdUser(user.getId());
 
-                Stage stage =
-                        (Stage)((Node)event.getSource())
-                                .getScene()
-                                .getWindow();
+                Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 
                 stage.setScene(new Scene(root));
+
+                stage.setMaximized(true);
+
                 stage.show();
             }catch (Exception e){
                 e.printStackTrace();
@@ -59,7 +59,5 @@ public class loginController {
         }else{
             System.out.println("login gagal");
         }
-
-
     }
 }
